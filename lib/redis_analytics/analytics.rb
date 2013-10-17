@@ -130,7 +130,7 @@ module Rack
           # ENV["REMOTE_ADDR"] to possible test in development with vagrant
           geo_data = geo_engine.get_data(ENV["REMOTE_ADDR"] || @request.ip)
           Rails.logger.debug " #\n\n ====   geo_ip: #{ENV["REMOTE_ADDR"] || @request.ip}\n\n\n"
-          geo_country_code = geo_data["country_code#{"2" if defined?(GeoIP) && geo_engine == GeoIP}"] unless geo_data.empty?
+          geo_country_code = geo_data["country_code#{"2" if defined?(GeoIP) && geo_engine == GeoIP}"] if geo_data && !geo_data.empty?
         end
 
         # Referrer regex decode
