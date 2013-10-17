@@ -34,7 +34,7 @@ module Rack
 
       # Get geo data
       def get_data(query)
-        return nil unless self.defined?
+        return {} unless self.defined?
 
         begin
           @geo_data = case @engine
@@ -44,7 +44,7 @@ module Rack
               g = @engine.new(RedisAnalytics.geo_ip_data_path)
               g.country(query)#.to_hash[:country_code2]
             else
-              nil
+              {}
           end
         rescue Exception => e
           puts "Warning: Unable to fetch geographic info #{e}"
