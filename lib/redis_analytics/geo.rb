@@ -39,7 +39,7 @@ module Rack
         begin
           @geo_data = case @engine
             when Geocoder
-              @engine.search(query).first.data
+              geo.data if geo = @engine.search(query).first
             when GeoIP
               g = @engine.new(RedisAnalytics.geo_ip_data_path)
               g.country(query)#.to_hash[:country_code2]

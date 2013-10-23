@@ -173,7 +173,8 @@ module Rack
 
             # geo data
             if geo_data
-              RedisAnalytics.redis_connection.zincrby("#{@redis_key_prefix}geo_data:#{ts}", 1, Marshal.dump(geo_data))
+              RedisAnalytics.redis_connection.zincrby("#{@redis_key_prefix}geo_data:#{ts}", 1, geo_data.to_json)
+              # RedisAnalytics.redis_connection.zincrby("#{@redis_key_prefix}geo_data:#{ts}", 1, Marshal.dump(geo_data))
               RedisAnalytics.redis_connection.expire("#{@redis_key_prefix}geo_data:#{ts}", expire) if expire
             end
 
